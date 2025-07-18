@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 class ItemsModel extends Equatable {
   final String id;
   final String value;
-  final bool isDeleteing;
-  final bool isFavourite;
+   bool? isDeleteing;
+   bool? isFavourite;
 
   ItemsModel(
       {required this.id,

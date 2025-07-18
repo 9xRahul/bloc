@@ -12,9 +12,7 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
   FavouriteBloc(this.favouriteRepo) : super(FavouriteState()) {
     on<FetchFavouriteList>(fetchList);
     on<FavouriteItem>(favouriteItem);
-    on<SelectItem>(selectItem);
-    on<UnSelectItem>(unSelectItem);
-    on<DeleteItem>(_deleteItem);
+    on<MarkOrUnMarkEvent>(_markOrUnmarkItem);
   }
 
   void fetchList(FetchFavouriteList event, Emitter<FavouriteState> emit) async {
@@ -26,53 +24,38 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
 
   void favouriteItem(FavouriteItem event, Emitter<FavouriteState> emit) {
     List<ItemsModel> updatedList = List.from(state.favouriteItemList);
-    List<ItemsModel> tempFavList = List.from(state.tempFavouriteItemList);
+
     int index =
         updatedList.indexWhere((element) => element.id == event.item.id);
 
-    if (event.item.isFavourite) {
-      if (tempFavList.contains(updatedList[index])) {
-        tempFavList.remove(updatedList[index]);
-        tempFavList.add(event.item);
-      }
-    } else {
-      if (tempFavList.contains(updatedList[index])) {
-        tempFavList.remove(updatedList[index]);
-        tempFavList.add(event.item);
-      }
-    }
     if (index != -1) {
-      updatedList[index] = event.item;
+      ItemsModel oldItem = updatedList[index];
+      ItemsModel newItem =
+          oldItem.copyWith(isFavourite: !(oldItem.isFavourite!));
+
+      updatedList[index] = newItem;
     }
-    emit(state.copyWith(
-        favouriteList: updatedList, tempFavouriteItemList: tempFavList));
+
+    emit(state.copyWith(favouriteList: List.from(updatedList)));
   }
 
-  void selectItem(SelectItem event, Emitter<FavouriteState> emit) {
-    List<ItemsModel> updatedTempList = List.from(state.tempFavouriteItemList);
+  void _markOrUnmarkItem(
+      MarkOrUnMarkEvent event, Emitter<FavouriteState> emit) {
+    List<ItemsModel> updatedList = List.from(state.favouriteItemList);
 
-    updatedTempList.add(event.item);
+    int index =
+        updatedList.indexWhere((element) => element.id == event.items.id);
 
-    emit(state.copyWith(tempFavouriteItemList: List.from(updatedTempList)));
-  }
-
-  void unSelectItem(UnSelectItem event, Emitter<FavouriteState> emit) {
-    List<ItemsModel> updatedTempList = List.from(state.tempFavouriteItemList);
-
-    updatedTempList.removeWhere((element) => element.id == event.item.id);
-
-    emit(state.copyWith(tempFavouriteItemList: List.from(updatedTempList)));
-  }
-
-  void _deleteItem(DeleteItem event, Emitter<FavouriteState> emit) {
-    List<ItemsModel> tempList = List.from(state.tempFavouriteItemList);
-
-    List<ItemsModel> tempFavList = List.from(state.favouriteItemList);
-    for (int i = 0; i < tempList.length; i++) {
-      tempFavList.remove(tempList[i]);
-      tempList.remove(tempList[i]);
+    if (index != -1) {
+      ItemsModel oldItem = updatedList[index];
+      ItemsModel newItem =
+          oldItem.copyWith(isDeleteing: !(oldItem.isDeleteing!));
+      updatedList[index] = newItem;
     }
-    emit(state.copyWith(
-        favouriteList: tempFavList, tempFavouriteItemList: tempList));
+    bool hasAtLeastOneDelete =
+        updatedList.any((item) => item.isDeleteing == true);
+   
+
+    emit(state.copyWith(favouriteList: List.from(updatedList),isMarked: hasAtLeastOneDelete));
   }
 }

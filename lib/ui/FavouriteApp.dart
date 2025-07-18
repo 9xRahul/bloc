@@ -25,9 +25,9 @@ class _FavouriteAppState extends State<FavouriteApp> {
         title: Text("Favourite App"),
         actions: [
           BlocBuilder<FavouriteBloc, FavouriteState>(
-            builder: (context, tempList) {
+            builder: (context, state) {
               return Visibility(
-                visible: tempList.tempFavouriteItemList.isEmpty ? false : true,
+                visible: state.isMarked ? true : false,
                 child: IconButton(
                     onPressed: () {
                       context.read<FavouriteBloc>().add(DeleteItem());
@@ -53,19 +53,13 @@ class _FavouriteAppState extends State<FavouriteApp> {
                   return Card(
                     child: ListTile(
                       leading: Checkbox(
-                          value: state.tempFavouriteItemList.contains(item)
+                          value: state.favouriteItemList[index].isDeleteing!
                               ? true
                               : false,
                           onChanged: (value) {
-                            if (value!) {
-                              context
-                                  .read<FavouriteBloc>()
-                                  .add(SelectItem(item: item));
-                            } else {
-                              context
-                                  .read<FavouriteBloc>()
-                                  .add(UnSelectItem(item: item));
-                            }
+                            context
+                                .read<FavouriteBloc>()
+                                .add(MarkOrUnMarkEvent(items: item));
                           }),
                       title: Text(item.value),
                       trailing: IconButton(
@@ -75,9 +69,9 @@ class _FavouriteAppState extends State<FavouriteApp> {
                                     id: item.id,
                                     value: item.value,
                                     isFavourite:
-                                        item.isFavourite ? false : true)));
+                                        item.isFavourite! ? false : true)));
                           },
-                          icon: Icon(item.isFavourite
+                          icon: Icon(item.isFavourite!
                               ? Icons.favorite_outlined
                               : Icons.favorite_outline)),
                     ),

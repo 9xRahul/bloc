@@ -4,25 +4,26 @@ enum ListStatus { loading, success, failure }
 
 class FavouriteState extends Equatable {
   final List<ItemsModel> favouriteItemList;
-  final List<ItemsModel> tempFavouriteItemList;
+  bool isMarked;
+
   final ListStatus listStatus;
-  FavouriteState(
-      {this.favouriteItemList = const [],
-      this.listStatus = ListStatus.loading,
-      this.tempFavouriteItemList = const []});
+  FavouriteState({
+    this.favouriteItemList = const [],
+    this.isMarked = false,
+    this.listStatus = ListStatus.loading,
+  });
 
   FavouriteState copyWith(
       {List<ItemsModel>? favouriteList,
       ListStatus? listStatus,
-      List<ItemsModel>? tempFavouriteItemList}) {
+      List<ItemsModel>? tempFavouriteItemList,
+      bool? isMarked}) {
     return FavouriteState(
         favouriteItemList: favouriteList ?? this.favouriteItemList,
         listStatus: listStatus ?? this.listStatus,
-        tempFavouriteItemList:
-            tempFavouriteItemList ?? this.tempFavouriteItemList);
+        isMarked: isMarked ?? this.isMarked);
   }
 
   @override
-  List<Object> get props =>
-      [favouriteItemList, listStatus, tempFavouriteItemList];
+  List<Object> get props => [favouriteItemList, listStatus];
 }

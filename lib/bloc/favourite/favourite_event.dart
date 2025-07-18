@@ -28,3 +28,11 @@ class UnSelectItem extends FavouriteEvent {
 }
 
 class DeleteItem extends FavouriteEvent {}
+
+
+
+class MarkOrUnMarkEvent extends FavouriteEvent {
+  final ItemsModel items;
+
+  MarkOrUnMarkEvent({required this.items});
+}
