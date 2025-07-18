@@ -1,0 +1,59 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+code_flore/ # your custom build-like folder
+
+# IDE related
+.idea/
+.vscode/
+*.iml
+
+# Android related
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/.gradle/
+android/local.properties
+android/app/*.keystore
+
+# iOS related
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/DerivedData/
+
+# Web related
+web/.dart_tool/
+
+# Windows/macOS/Linux builds
+windows/Flutter/ephemeral/
+macos/Flutter/ephemeral/
+linux/Flutter/ephemeral/
+
+# Symbolic links
+symlink/
+
+# Other common junk files
+*.log
+*.tmp
+*.swp
+*.lock
+*.bak
+
+# VS Code settings
+.vscode/
+
+# Flutter generated plugin registrant
+generated_plugin_registrant.dart
+
+# Firebase specific
+firebase_app_id_file.json
+
+# Ignore personal files
+*.env
+*.secrets
