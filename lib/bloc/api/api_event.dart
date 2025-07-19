@@ -13,3 +13,10 @@ class PostFetchEvent extends ApiEvent {
   @override
   List<Object> get props => [isRetried!];
 }
+
+class SearchEvent extends ApiEvent {
+  final String searchKey;
+  SearchEvent(this.searchKey);
+  @override
+  List<Object> get props => [searchKey];
+}
