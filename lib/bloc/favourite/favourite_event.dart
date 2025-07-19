@@ -15,21 +15,7 @@ class FavouriteItem extends FavouriteEvent {
   FavouriteItem({required this.item});
 }
 
-class SelectItem extends FavouriteEvent {
-  final ItemsModel item;
-
-  SelectItem({required this.item});
-}
-
-class UnSelectItem extends FavouriteEvent {
-  final ItemsModel item;
-
-  UnSelectItem({required this.item});
-}
-
 class DeleteItem extends FavouriteEvent {}
-
-
 
 class MarkOrUnMarkEvent extends FavouriteEvent {
   final ItemsModel items;
