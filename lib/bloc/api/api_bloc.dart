@@ -48,7 +48,7 @@ class ApiBloc extends Bloc<ApiEvent, ApiState> {
     }
 
     final filteredList = state.postList.where((element) {
-      return element.id.toString().startsWith(searchKey);
+      return element.email!.toLowerCase().startsWith(searchKey.toLowerCase());
     }).toList();
 
     if (filteredList.isEmpty) {

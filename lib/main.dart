@@ -10,6 +10,7 @@ import 'package:bloc_example/bloc/counter/counter_bloc.dart';
 import 'package:bloc_example/ui/ApiScreen.dart';
 import 'package:bloc_example/ui/CounterScreen.dart';
 import 'package:bloc_example/ui/FavouriteApp.dart';
+import 'package:bloc_example/ui/LoginScreen.dart';
 import 'package:bloc_example/ui/ToDoScreen.dart';
 import 'package:bloc_example/utils/ImagePickerUtils.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const ApiScreen(),
+          home: const LoginScreen(),
         ));
   }
 }

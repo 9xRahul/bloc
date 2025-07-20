@@ -156,12 +156,14 @@ class _CounterScreenState extends State<CounterScreen> {
                                         ),
                                       );
                                     } else {
-                                      return Container(
-                                        height: 100,
-                                        width: 100,
-                                        child: Image.file(File(gallerystate
-                                            .galleryImage!.path
-                                            .toString())),
+                                      return Expanded(
+                                        child: Container(
+                                          height: 100,
+                                          width: 100,
+                                          child: Image.file(File(gallerystate
+                                              .galleryImage!.path
+                                              .toString())),
+                                        ),
                                       );
                                     }
                                   })

@@ -87,7 +87,7 @@ class _ApiScreenState extends State<ApiScreen> {
                                 ? state.postList[index]
                                 : state.temPostList[index];
                             return ListTile(
-                              title: Text(post.id.toString()),
+                              title: Text(post.email.toString()),
                               subtitle: Text(post.body.toString()),
                             );
                           },
